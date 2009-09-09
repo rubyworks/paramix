@@ -1,0 +1,27 @@
+<announce>
+
+ <title>      $title   
+</title>
+
+ <version>    $version
+</version>
+
+ <homepage>   $homepage
+</homepage>
+
+ <slogan>     $slogan
+</slogan>
+
+ <summary>    $summary
+</summary>
+
+I am please to announce the first offical release of Cherry/XML. 
+
+$description
+
+And yes, the XML layout is just for shits-n-giggles :)
+
+</announce>
+
+$stamp
+
