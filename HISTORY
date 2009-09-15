@@ -1,4 +1,11 @@
+= RELEASE HISTORY
+
 == 1.0.0 // 2009-06-29
 
-* Ported from Ruby Facets.
+This is the initial stand-alone release of Paramix
+spun-off from Ruby Facets.
+
+Changes:
+
+* Happy Birthday!
 
