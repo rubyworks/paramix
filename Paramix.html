@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Module: Paramix</title>
+
+  <link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+  <script src="./js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+  <div class="head">
+    <h1 class="module">Paramix</h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="./lib/paramix_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/paramix.rb">lib/paramix.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+
+      <!-- Namespace Contents -->
+      
+      <div id="namespace-list-section" class="section">
+        <h3 class="section-header">Namespace</h3>
+        <ul class="link-list">
+          
+          <li><span class="type">CLASS</span> <a href="Paramix/Delegator.html">Paramix::Delegator</a></li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#M000000">::append_features</a></li>
+          
+          <li><a href="#M000001">::new</a></li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="./LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="./Paramix.html">Paramix</a></li>
+        
+          <li class="class"><a href="./Paramix/Delegator.html">Paramix::Delegator</a></li>
+        
+          <li class="class"><a href="./Module.html">Module</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+
+    <div id="validator-badges">
+      Generated with <a href="http://github.com/proutils/rdazzle">Razzle Dazzle Redfish</a>.<br/>
+      <a href="http://validator.w3.org/check/referer">[Validate]</a>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      <h1>Parametric Mixin</h1>
+<p>
+Parametric Mixins provides parameters for mixin modules. <a
+href="Module.html">Module</a> parameters can be set at the time of
+inclusion or extension using Module#[] method, then parameters can be
+accessed via the mixin_parameters method.
+</p>
+<pre>
+  module MyMixin
+    include Paramix
+
+    def hello
+      puts &quot;Hello from #{mixin_parameters[MyMixin][:name]}!&quot;
+    end
+  end
+
+  class MyClass
+    include MyMixin[:name =&gt; 'Ruby']
+  end
+
+  m = MyClass.new
+  m.hello   #=&gt; 'Hello from Ruby!'
+</pre>
+<p>
+You can view the full set of parameters via the mixin_parameters class
+method, which returns a hash keyed on the included modules.
+</p>
+<pre>
+  MyClass.mixin_parameters           #=&gt; {MyMixin=&gt;{:name=&gt;'Ruby'}}
+  MyClass.mixin_parameters[MyMixin]  #=&gt; {:name=&gt;'ruby'}
+</pre>
+<p>
+The include <a href="Paramix.html">Paramix</a> is equivalent to:
+</p>
+<pre>
+  def [](parameters)
+    Paramix.new(self, parameters)
+  end
+</pre>
+<p>
+<a href="Paramix.html#M000001">Paramix.new</a> can also take a block that
+injects code into the class or module including the parametric mixin. This
+is useful as an alternative to using the included callback for creating
+dynamic mixins. For example:
+</p>
+<pre>
+  def self.[](parameters)
+    Paramix.new(self, parameters) do
+      attr_accessor mixin_params[MyMixin][:name]
+    end
+  end
+</pre>
+<p>
+As opposed to:
+</p>
+<pre>
+  module Mixin
+    def self.included(base)
+      base.class_eval do
+        attr_accessor mixin_params[MyMixin][:name]
+      end
+    end
+  end
+</pre>
+
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="append-features-method" class="method-detail ">
+        <a name="M000000"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">append_features</span><span
+            class="method-args">(base)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="append-features-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/paramix.rb, line 107</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">append_features</span>(<span class="ruby-identifier">base</span>)
+    (<span class="ruby-keyword kw">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">base</span>; <span class="ruby-keyword kw">self</span>; <span class="ruby-keyword kw">end</span>).<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">:[]</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">parameters</span><span class="ruby-operator">|</span>  <span class="ruby-comment cmt"># TODO until 1.9 no &amp;block</span>
+        <span class="ruby-constant">Delegator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">base</span>, <span class="ruby-identifier">parameters</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(delegate_module, parameters={}, &base_block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+It you want to define the module&#8217;s ::[] method by hand. You can use
+<a href="Paramix.html#M000001">Paramix.new</a> instead of <a
+href="Paramix/Delegator.html#M000002">Paramix::Delegator.new</a>.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/paramix.rb, line 118</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">delegate_module</span>, <span class="ruby-identifier">parameters</span>={}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">base_block</span>)
+    <span class="ruby-constant">Delegator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">delegate_module</span>, <span class="ruby-identifier">parameters</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">base_block</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</body>
+</html>
