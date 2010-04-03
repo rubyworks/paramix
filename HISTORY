@@ -1,5 +1,15 @@
 = RELEASE HISTORY
 
+== 1.0.1 // 2010-04-03
+
+This release simply removed dependencies on Facets.
+
+Changes:
+
+* Removed dependencies on Facets module/basename and module/modspace.
+* Divided tests into separate files.
+
+
 == 1.0.0 // 2009-06-29
 
 This is the initial stand-alone release of Paramix
