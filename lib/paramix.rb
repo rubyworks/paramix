@@ -25,8 +25,6 @@
 #
 #   - Thomas Sawyer
 
-require 'facets/module/basename'
-require 'facets/module/modspace'
 
 # = Parametric Mixin
 #
@@ -196,6 +194,7 @@ class Module
   def mixin_parameters
     @mixin_parameters ||= {}
   end
+
   alias_method :mixin_params, :mixin_parameters
 
 end
