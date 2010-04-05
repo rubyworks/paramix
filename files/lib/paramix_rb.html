@@ -46,7 +46,7 @@
       <h3 class="section-header">File Stats</h3>
       <dl>
         <dt class="modified-date">Last Modified</dt>
-        <dd class="modified-date">Mon Apr 05 08:48:08 -0400 2010</dd>
+        <dd class="modified-date">Mon Apr 05 09:01:17 -0400 2010</dd>
 
         
 
@@ -252,7 +252,7 @@ dynamics based on mixin parameters. For example:
   module MyMixin
     def self.[](parameters)
       Paramix::Mixin.new(self, parameters) do
-        attr_accessor parameters[MyMixin][:name]
+        attr_accessor parameters[:name]
       end
     end
   end
@@ -266,7 +266,7 @@ As opposed to:
 
     def self.included(base)
       base.class_eval do
-        attr_accessor base.mixin_parameters[:name]
+        attr_accessor base.mixin_parameters[MyMixin][:name]
       end
       super(base)
     end
