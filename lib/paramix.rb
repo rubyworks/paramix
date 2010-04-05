@@ -40,7 +40,7 @@
 #   module MyMixin
 #     def self.[](parameters)
 #       Paramix::Mixin.new(self, parameters) do
-#         attr_accessor parameters[MyMixin][:name]
+#         attr_accessor parameters[:name]
 #       end
 #     end
 #   end
@@ -52,7 +52,7 @@
 #
 #     def self.included(base)
 #       base.class_eval do
-#         attr_accessor base.mixin_parameters[:name]
+#         attr_accessor base.mixin_parameters[MyMixin][:name]
 #       end
 #       super(base)
 #     end
