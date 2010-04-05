@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -8,19 +7,37 @@
 
   <title>Paramix</title>
 
-  <link type="text/css" media="screen" href="rdoc.css" rel="stylesheet" />
+  <link rel="SHORTCUT ICON" href="assets/icon/ruby.png">
 
-  <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
-  <script src="js/pop.js" type="text/javascript" charset="utf-8"></script>
+  <link type="text/css" rel="stylesheet" href="assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="assets/highlight/styles/github.css" title="GitHub" />
 
-  
+  <script type="text/javascript" charset="utf-8" src="assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax()
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
 </head>
 <body class="indexpage">
+<div id="main">
 
+  
   <div class="head">
-    <h1>Paramix</h1>
+    <h1>
+      <img src="assets/icon/project.png" align="absmiddle">&nbsp;
+      <a href="index.html">Paramix</a>
+    </h1>
   </div>
 
   <div id="metadata">
@@ -29,14 +46,16 @@
       
       
       <div id="fileindex-section" class="section project-section">
-        <h3 class="section-header">Files</h3>
+        <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="HISTORY.html">HISTORY</a></li>
+          <li class="file"><a href="files/HISTORY.html">HISTORY</a></li>
         
-          <li class="file"><a href="LICENSE.html">LICENSE</a></li>
+          <li class="file"><a href="files/Syckfile.html">Syckfile</a></li>
         
-          <li class="file"><a href="README_rdoc.html">README.rdoc</a></li>
+          <li class="file"><a href="files/LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="files/README_rdoc.html">README.rdoc</a></li>
         
         </ul>
       </div>
@@ -44,24 +63,30 @@
 
       <div id="classindex-section" class="section project-section">
         <h3 class="section-header">Class Index
-          <span class="search-toggle"><img src="images/find.png"
-            height="16" width="16" alt="[+]"
-            title="show/hide quicksearch" /></span></h3>
+          <span class="search-toggle"><img src="assets/icon/find.png" height="16" width="16" alt="[+]" title="show/hide quicksearch" /></span>
+        </h3>
         <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
         <fieldset>
           <legend>Quicksearch</legend>
-          <input type="text" name="quicksearch" value=""
-            class="quicksearch-field" />
+          <input type="text" name="quicksearch" value="" class="quicksearch-field" />
         </fieldset>
         </form>
 
         <ul class="link-list">
         
-          <li class="module"><a href="Paramix.html">Paramix</a></li>
+          <li class="module"><a href="classes/Paramix.html">Paramix</a></li>
         
-          <li class="class"><a href="Paramix/Delegator.html">Paramix::Delegator</a></li>
+          <li class="module"><a href="classes/Paramix/ClassMethods.html">Paramix::ClassMethods</a></li>
         
-          <li class="class"><a href="Module.html">Module</a></li>
+          <li class="class"><a href="classes/Paramix/Proxy.html">Paramix::Proxy</a></li>
+        
+          <li class="module"><a href="classes/Paramix/Proxy/ClassParameterize.html">Paramix::Proxy::ClassParameterize</a></li>
+        
+          <li class="module"><a href="classes/Paramix/Proxy/InstanceParameterize.html">Paramix::Proxy::InstanceParameterize</a></li>
+        
+          <li class="module"><a href="classes/Kernel.html">Kernel</a></li>
+        
+          <li class="class"><a href="classes/Module.html">Module</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -69,36 +94,96 @@
 
       <!-- METHODS -->
       <div id="methodindex-section" class="section project-section">
-        <h3 class="section-header">Method Index</h3>
+        <h3 class="section-header">Method Index
+          <span class="search-toggle"><img src="assets/icon/find.png" height="16" width="16" alt="[+]" title="show/hide quicksearch" /></span>
+        </h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value="" class="quicksearch-field" />
+        </fieldset>
+        </form>
+
         <ul>
+        
           
-            <li><a href="Paramix.html#M000000">::append_features &mdash; Paramix</a></li>
+          <li class="singleton" style="clear: both;">
+            <span class="method-parent-aside">Paramix</span>
+            <a href="classes/Paramix.html#M000000">::included</a>
+          </li>
+        
           
-            <li><a href="Paramix/Delegator.html#M000002">::new &mdash; Paramix::Delegator</a></li>
+          <li class="singleton" style="clear: both;">
+            <span class="method-parent-aside">Paramix::Proxy</span>
+            <a href="classes/Paramix/Proxy.html#M000003">::new</a>
+          </li>
+        
           
-            <li><a href="Paramix.html#M000001">::new &mdash; Paramix</a></li>
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Paramix::ClassMethods</span>
+            <a href="classes/Paramix/ClassMethods.html#M000001">#[]</a>
+          </li>
+        
           
-            <li><a href="Paramix/Delegator.html#M000005">#[] &mdash; Paramix::Delegator</a></li>
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Paramix::Proxy</span>
+            <a href="classes/Paramix/Proxy.html#M000004">#append_features</a>
+          </li>
+        
           
-            <li><a href="Paramix/Delegator.html#M000003">#append_features &mdash; Paramix::Delegator</a></li>
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Paramix::Proxy</span>
+            <a href="classes/Paramix/Proxy.html#M000005">#extend_object</a>
+          </li>
+        
           
-            <li><a href="Paramix/Delegator.html#M000004">#extend_object &mdash; Paramix::Delegator</a></li>
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Paramix::ClassMethods</span>
+            <a href="classes/Paramix/ClassMethods.html#M000002">#included</a>
+          </li>
+        
           
-            <li><a href="Module.html#M000006">#mixin_parameters &mdash; Module</a></li>
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Kernel</span>
+            <a href="classes/Kernel.html#M000010">#meta_class</a>
+          </li>
+        
           
-            <li><a href="Module.html#M000007">#mixin_params &mdash; Module</a></li>
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Paramix::Proxy::InstanceParameterize</span>
+            <a href="classes/Paramix/Proxy/InstanceParameterize.html#M000006">#mixin_param</a>
+          </li>
+        
           
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Paramix::Proxy::ClassParameterize</span>
+            <a href="classes/Paramix/Proxy/ClassParameterize.html#M000007">#mixin_param</a>
+          </li>
+        
+          
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Module</span>
+            <a href="classes/Module.html#M000008">#mixin_parameters</a>
+          </li>
+        
+          
+          <li class="method" style="clear: both;">
+            <span class="method-parent-aside">Module</span>
+            <a href="classes/Module.html#M000009">#mixin_params</a>
+          </li>
+        
         </ul>
       </div>
 
-      
-
     </div>
 
-    <!-- ISSUE: Can't find RDoc::Generator::Redfish::VERSION -->
     <div id="validator-badges">
-      Generated with <a href="http://github.com/proutils/rdazzle">Razzle Dazzle Redfish</a>.<br/>
-      <a href="http://validator.w3.org/check/referer">[Validate]</a>
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI RedFish</a> 1.2
+      <br/><br/> 
     </div>
   </div>
 
@@ -108,11 +193,13 @@
   <h2>Files</h2>
   <ul>
     
-      <li class="file"><a href="HISTORY.html">HISTORY</a></li>
+      <li class="file"><a href="files/HISTORY.html">HISTORY</a></li>
     
-      <li class="file"><a href="LICENSE.html">LICENSE</a></li>
+      <li class="file"><a href="files/LICENSE.html">LICENSE</a></li>
     
-      <li class="file"><a href="README_rdoc.html">README.rdoc</a></li>
+      <li class="file"><a href="files/README_rdoc.html">README.rdoc</a></li>
+    
+      <li class="file"><a href="files/Syckfile.html">Syckfile</a></li>
     
   </ul>
   
@@ -120,39 +207,53 @@
   <h2>Classes/Modules</h2>
   <ul>
     
-    <li class="module"><a href="Paramix.html">Paramix</a></li>
+    <li class="module"><a href="classes/Paramix.html">Paramix</a></li>
     
-    <li class="class"><a href="Paramix/Delegator.html">Paramix::Delegator</a></li>
+    <li class="module"><a href="classes/Paramix/ClassMethods.html">Paramix::ClassMethods</a></li>
     
-    <li class="class"><a href="Module.html">Module</a></li>
+    <li class="class"><a href="classes/Paramix/Proxy.html">Paramix::Proxy</a></li>
+    
+    <li class="module"><a href="classes/Paramix/Proxy/ClassParameterize.html">Paramix::Proxy::ClassParameterize</a></li>
+    
+    <li class="module"><a href="classes/Paramix/Proxy/InstanceParameterize.html">Paramix::Proxy::InstanceParameterize</a></li>
+    
+    <li class="module"><a href="classes/Kernel.html">Kernel</a></li>
+    
+    <li class="class"><a href="classes/Module.html">Module</a></li>
     
   </ul>
 
   <h2>Methods</h2>
   <ul>
     
-      <li><a href="Paramix.html#M000000">::append_features &mdash; Paramix</a></li>
+      <li><a href="classes/Paramix.html#M000000">::included &mdash; Paramix</a></li>
     
-      <li><a href="Paramix/Delegator.html#M000002">::new &mdash; Paramix::Delegator</a></li>
+      <li><a href="classes/Paramix/Proxy.html#M000003">::new &mdash; Paramix::Proxy</a></li>
     
-      <li><a href="Paramix.html#M000001">::new &mdash; Paramix</a></li>
+      <li><a href="classes/Paramix/ClassMethods.html#M000001">#[] &mdash; Paramix::ClassMethods</a></li>
     
-      <li><a href="Paramix/Delegator.html#M000005">#[] &mdash; Paramix::Delegator</a></li>
+      <li><a href="classes/Paramix/Proxy.html#M000004">#append_features &mdash; Paramix::Proxy</a></li>
     
-      <li><a href="Paramix/Delegator.html#M000003">#append_features &mdash; Paramix::Delegator</a></li>
+      <li><a href="classes/Paramix/Proxy.html#M000005">#extend_object &mdash; Paramix::Proxy</a></li>
     
-      <li><a href="Paramix/Delegator.html#M000004">#extend_object &mdash; Paramix::Delegator</a></li>
+      <li><a href="classes/Paramix/ClassMethods.html#M000002">#included &mdash; Paramix::ClassMethods</a></li>
     
-      <li><a href="Module.html#M000006">#mixin_parameters &mdash; Module</a></li>
+      <li><a href="classes/Kernel.html#M000010">#meta_class &mdash; Kernel</a></li>
     
-      <li><a href="Module.html#M000007">#mixin_params &mdash; Module</a></li>
+      <li><a href="classes/Paramix/Proxy/InstanceParameterize.html#M000006">#mixin_param &mdash; Paramix::Proxy::InstanceParameterize</a></li>
+    
+      <li><a href="classes/Paramix/Proxy/ClassParameterize.html#M000007">#mixin_param &mdash; Paramix::Proxy::ClassParameterize</a></li>
+    
+      <li><a href="classes/Module.html#M000008">#mixin_parameters &mdash; Module</a></li>
+    
+      <li><a href="classes/Module.html#M000009">#mixin_params &mdash; Module</a></li>
     
   </ul>
 -->
 
   
   <div id="documentation">
-    <h1><a href="Paramix.html">Paramix</a></h1>
+    <h1><a href="../classes/Paramix.html">Paramix</a></h1>
 <ul>
 <li><a
 href="http://rubyworks.github.com/paramix">rubyworks.github.com/paramix</a>
@@ -232,5 +333,7 @@ See <a href="LICENSE.html">LICENSE</a> file for details.
   </div>
   
 
+</div>
 </body>
 </html>
+
