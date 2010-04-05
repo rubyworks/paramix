@@ -1,43 +1,16 @@
-# TITLE:
-#
-#   Parametric Mixins
-#
-# SUMMARY:
-#
-#   Parametric Mixins provides parameters for mixin modules.
-#
-# COPYRIGHT:
-#
-#   Copyright (c) 2008 T. Sawyer
-#
-# LICENSE:
-#
-#   Ruby License
-#
-#   This module is free software. You may use, modify, and/or redistribute this
-#   software under the same terms as Ruby.
-#
-#   This program is distributed in the hope that it will be useful, but WITHOUT
-#   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-#   FOR A PARTICULAR PURPOSE.
-#
-# AUTHORS:
-#
-#   - Thomas Sawyer
-
-
 # = Parametric Mixin
 #
 # Parametric Mixins provides parameters for mixin modules.
 # Module parameters can be set at the time of inclusion 
 # or extension using Module#[] method, then parameters
-# can be accessed via the #mixin_parameters method.
+# can be accessed via the #mixin_param and #mixin_parameters
+# methods.
 #
 #   module MyMixin
 #     include Paramix
 #
 #     def hello
-#       puts "Hello from #{mixin_parameters[MyMixin][:name]}!"
+#       puts "Hello from #{ mixin_param(MyMixin, :name) }!"
 #     end
 #   end
 #
@@ -48,154 +21,170 @@
 #   m = MyClass.new
 #   m.hello   #=> 'Hello from Ruby!'
 #
-# You can view the full set of parameters via the #mixin_parameters
-# class method, which returns a hash keyed on the included modules.
+# You can view the full set of parameters via the +mixin_parameters+ method.
 #
-#   MyClass.mixin_parameters           #=> {MyMixin=>{:name=>'Ruby'}}
-#   MyClass.mixin_parameters[MyMixin]  #=> {:name=>'ruby'}
+#   MyClass.mixin_parameters  #=> {MyMixin => {:name => 'ruby'}}
 #
-# The include Paramix is equivalent to:
+# Including Paramix into a module is essentially equivalent to defining
+# a module method:
 #
 #   def [](parameters)
-#     Paramix.new(self, parameters)
+#     Paramix::Proxy.new(self, parameters)
 #   end
 #
-# Paramix.new can also take a block that injects code into the class
-# or module including the parametric mixin. This is useful as an
-# alternative to using the #included callback for creating dynamic
-# mixins. For example:
+# Paramix::Proxy.new can also take a block that injects code into the
+# mixin. This is useful as an alternative to using the #included
+# callback for creating metaclass dynamics based on mixin parameters.
+# For example:
 #
-#   def self.[](parameters)
-#     Paramix.new(self, parameters) do
-#       attr_accessor mixin_params[MyMixin][:name]
+#   module MyMixin
+#     def self.[](parameters)
+#       Paramix::Mixin.new(self, parameters) do
+#         attr_accessor parameters[MyMixin][:name]
+#       end
 #     end
 #   end
 #
 # As opposed to:
 #
-#   module Mixin
+#   module MyMixin
+#     include Paramix
+#
 #     def self.included(base)
 #       base.class_eval do
-#         attr_accessor mixin_params[MyMixin][:name]
+#         attr_accessor base.mixin_parameters[:name]
 #       end
+#       super(base)
 #     end
 #   end
 #
-#--
-# More conveniently a new callback has been added, #included_with_parameters,
-# which passes in the parameters in addition to the base class/module.
-#
-#   module Mixin
-#     def self.included_with_parameters( base, parms )
-#       base.class_eval {
-#         def hello
-#           puts "Hello from #{mixin_parameters[Mixin][:name]}"
-#         end
-#       }
-#     end
-#   end
-#
-# We would prefer to have passed the parameters through the #included callback
-# method itself, but implementation of such a feature is much more complicated.
-# If a reasonable solution presents itself in the future however, we will fix.
-#++
+module Paramix
 
-module Paramix # or PatrametricMixin ?
-
-  def self.append_features(base)
-    (class << base; self; end).class_eval do
-      define_method(:[]) do |parameters|  # TODO until 1.9 no &block
-        Delegator.new(base, parameters)
-      end
-    end
-  end
-
-  # It you want to define the module's ::[] method by hand. You
-  # can use Paramix.new instead of Paramix::Delegator.new.
-
-  def self.new(delegate_module, parameters={}, &base_block)
-    Delegator.new(delegate_module, parameters, &base_block)
+  #
+  def self.included(base)
+    base.extend(ClassMethods)
+    super(base)
   end
 
   #
+  module ClassMethods
+    def [](parameters)
+      Proxy.new(self, parameters)
+    end
 
-  class Delegator < Module
+    def included(base)
+      base.extend(ClassMethods)
+      super(base)
+    end
+  end
 
-    attr :module_delegate
+  class Proxy < Module
+    attr :mixin
     attr :parameters
-    attr :base_block
+    attr :block
 
     #
-
-    def initialize(module_delegate, parameters={}, &base_block)
-      @module_delegate = module_delegate
-      @parameters      = parameters
-      @base_block      = base_block
+    def initialize(mixin, parameters, &block)
+      @mixin      = mixin
+      @parameters = parameters || {}
+      @block      = block
     end
 
     #
-
     def append_features(base)
-      base.mixin_parameters[module_delegate] = parameters
+      mixin = @mixin
 
-      base.module_eval do 
-        define_method(:mixin_parameters) do
-          base.mixin_parameters
-        end
-        alias_method :mixin_params, :mixin_parameters
-      end
+      base.mixin_parameters[mixin] ||= {}
+      base.mixin_parameters[mixin].update(@parameters)
 
-      base.module_eval(&@base_block) if base_block
+      mixin.module_eval{ append_features(base) }
 
-      base.__send__(:include, module_delegate)
+      base.module_eval{ include InstanceParameterize }
+      #base.extend ClassParameterize
+
+      mixin.module_eval{ included(base) }
+
+      base.module_eval(&@block) if @block
     end
 
     #
-
     def extend_object(base)
-      baseclass = (class << base; self; end)
+      mixin = @mixin
 
-      baseclass.mixin_parameters[module_delegate] = parameters
+      metabase = (class << base; self; end)
 
-      baseclass.module_eval do 
-        define_method(:mixin_parameters) do
-          baseclass.mixin_parameters
-        end
-        alias_method :mixin_params, :mixin_parameters
-      end
+      metabase.mixin_parameters[mixin] ||= {}
+      metabase.mixin_parameters[mixin].update(@parameters)
 
-      baseclass.module_eval(&@base_block) if base_block
+      mixin.module_eval{ extend_object(base) }
 
-      base.__send__(:extend, module_delegate)
+      base.extend ClassParameterize
+
+      metabase.module_eval(&@block) if @block
     end
 
-    def [](name)
-      @parameters[name]
+    #
+    module InstanceParameterize
+      #
+      def mixin_param(m, n)
+        h = {}; r = nil
+        self.class.ancestors.each do |a|
+          break if Paramix == a
+          break if m == a
+          q = a.mixin_parameters
+          #if q = Paramix.mixin_params[a]
+            if q[m] && q[m].key?(n)
+              r = q[m][n]
+            else
+              q.each do |k,v|
+                h.update(v)
+              end
+            end
+          #end
+        end
+        r ? r : h[n]
+      end
+    end
+
+    #
+    module ClassParameterize
+      #
+      def mixin_param(m, n)
+        h = {}; r = nil
+        ancestors.each do |a|
+          break if Paramix==a
+          if q = a.meta_class.mixin_parameters #[class << a; self ; end]
+          #if q = Paramix.mixin_params[class << a; self ; end]
+            if q[m] && q[m].key?(n)
+              r = q[m][n]
+            else
+              q.each do |k,v|
+                h.update(v)
+              end
+            end
+          end
+        end
+        r ? r : h[n]
+      end
     end
 
   end
 
 end
 
-
+#
 class Module
 
-  # Store for parametric mixin parameters.
-  #
-  # Returns a hash, the keys of which are the parametric mixin module
-  # and the values are the parameters associacted with this module/class.
-  #
-  #   class C
-  #     include P(:x=>1)
-  #   end
-  #
-  #   C.mixin_parameters[P]   #=> {:x=>1}
-  #
   def mixin_parameters
-    @mixin_parameters ||= {}
+    @mixin_params ||= {}
   end
 
   alias_method :mixin_params, :mixin_parameters
 
 end
 
+module Kernel
+  def meta_class
+    (class << self; self; end)
+  end
+end

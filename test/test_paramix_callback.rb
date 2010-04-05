@@ -3,53 +3,56 @@ require 'test/unit'
 
 class TC_Paramix_Callback < Test::Unit::TestCase
 
+  # -- fixture ------------------------------
+
   module M
     include Paramix
 
     def f
-      mixin_params[M][:p]
+      mixin_param(M,:p)
     end
 
+    #
     def self.included(base)
-      params = base.mixin_params[self]
       base.class_eval do
-        define_method :check do
-          params
-        end
+        attr_accessor mixin_parameters[M][:p]
       end
+      super(base)
     end
   end
 
-  class C
-    include M[:p => "check"]
+  class C1
+    include M[:p => "c1"]
   end
 
-  class D
-    include M[:p => "steak"]
+  class C2
+    include M[:p => "c2"]
   end
 
-  def test_01_001
-    c = C.new
-    assert_equal( "check", c.mixin_params[M][:p] )
-    assert_equal( "check", c.f )
+  # -- tests --------------------------------
+
+  def test_class_1
+    c = C1.new
+    #assert_equal( "c1", c.mixin_params[:p] )
+    assert_equal( "c1", c.f )
   end
 
-  def test_01_002
-    d = D.new
-    assert_equal( "steak", d.mixin_params[M][:p] )
-    assert_equal( "steak", d.f )
+  def test_class_2
+    c = C2.new
+    #assert_equal( "c2", c.mixin_params[:p] )
+    assert_equal( "c2", c.f )
   end
 
-  def test_01_003
-    assert_equal( {M=>{:p => "check"}}, C.mixin_parameters )
-    assert_equal( {M=>{:p => "steak"}}, D.mixin_parameters )
+  def test_callback_class_1
+    c = C1.new
+    c.c1 = :yes1
+    assert_equal(:yes1, c.c1)
   end
 
-  def test_01_004
-    c = C.new
-    assert_equal( {:p => "check"}, c.check )
-    d = D.new
-    assert_equal( {:p => "steak"}, d.check )
+  def test_callback_class_2
+    c = C2.new
+    c.c2 = :yes2
+    assert_equal(:yes2, c.c2)
   end
 
 end
