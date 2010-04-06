@@ -1,5 +1,21 @@
 = RELEASE HISTORY
 
+== 2.0.0 // 2010-04-06
+
+Thanks to a conversation with Jonathan ... Paramix has been
+completely rewritten.  Whereas anonymous modules were avoided
+in prior versions, it has become clear that the worries of
+memory consumption that would accompany them were largely 
+unfounded. This new version therefore makes use of them.
+The new code is refreshing concise, and the design fully
+comforming to POLS.
+
+Changes:
+
+* Use anonymous modules instead of global parameter stores.
+* Use paramterized block for dynamic definitions.
+
+
 == 1.1.0 // 2010-04-05
 
 The previous versions did not properly support nested parametric

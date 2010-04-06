@@ -1,24 +1,31 @@
 require 'paramix'
 require 'test/unit'
 
+include Paramix
+
 class TC_Paramix_Callback < Test::Unit::TestCase
 
   # -- fixture ------------------------------
 
   module M
-    include Paramix
+    include Parametric
 
-    def f
-      mixin_param(M,:p)
+    parameterized do |params|
+
+      define :f do
+        params[:p]
+      end
+
+      attr_accessor params[:p]
     end
 
     #
-    def self.included(base)
-      base.class_eval do
-        attr_accessor mixin_parameters[M][:p]
-      end
-      super(base)
-    end
+    #def self.included(base)
+    #  base.class_eval do
+    #    attr_accessor mixin_parameters[M][:p]
+    #  end
+    #  super(base)
+    #end
   end
 
   class C1

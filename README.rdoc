@@ -1,66 +1,49 @@
 = Paramix
 
-* http://rubyworks.github.com/paramix
-* http://death.rubyforge.org (old site)
+* home: http://rubyworks.github.com/paramix
+* work: http://github.com/rubyworks/paramix
 
 
 == DESCRIPTION
 
-Parametric Mixins provides parameters for mixin modules.
-
-
-== FEATURES/ISSUES
-
-* Include mixins with class level parameterization.
-* Light-weight --it does not resort to cloned anonymous modules.
+Parametric Mixins provides an easy means to "functionalize" modules.
+The module can then be differentiated upon usage according to the
+parameters provided.
 
 
 == RELEASE NOTES
 
-Please see RELEASE file.
+Please see HISTORY.rdoc file.
 
 
-== SYNOPSIS
+== EXAMPLE
 
-   module MyMixin
-     include Paramix
+Here is a simple example that uses a a parameter 
+to define a method and another parameter to define
+it's return value.
 
-     def hello
-       puts "Hello from #{mixin_parameters[MyMixin][:name]}!"
-     end
-   end
+  module M
+    include Paramix::Parametric
 
-   class MyClass
-     include MyMixin[:name => 'Ruby']
-   end
+    paramaterized do |params|
+      define_method params[:name] do
+        params[:value]
+      end
+    end
+  end
 
-   m = MyClass.new
-   m.hello   #=> 'Hello from Ruby!'
+  class X
+    include M[:name=>'foo', :value='bar']
+  end
 
-
-== HOW TO INSTALL
-
-Describe your installation procedure here.
-
-To install with RubyGems simply open a console and type:
-
-  gem install paramix
-
-Local installation requires Setup.rb (gem install setup),
-then download the tarball package and type:
-
-  tar -xvzf paramix-1.0.0.tgz
-  cd paramix-1.0.0.tgz
-  sudo setup.rb all
-
-Windows users use 'ruby setup.rb all'.
+  X.new.foo  #=> 'bar'
 
 
-== LICENSE
+== COPYRIGHTS
 
-Copyright (c) 2006 Coding Dead
+Copyright (c) 2006,2010 Thomas Sawyer
 
-This program is ditributed unser the terms of the LGPLv3 license.
+This program is ditributed unser the terms of the MIT license.
 
 See LICENSE file for details.
 

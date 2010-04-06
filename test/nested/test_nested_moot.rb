@@ -1,7 +1,7 @@
 require 'paramix'
 require 'test/unit'
 
-class TC_Paramix_Nested_Both < Test::Unit::TestCase
+class TC_Paramix_Nested_Simple < Test::Unit::TestCase
 
   # -- fixture ------------------------------
 
@@ -18,38 +18,30 @@ class TC_Paramix_Nested_Both < Test::Unit::TestCase
   module N
     include Paramix::Parametric
     include M[:p=>"NMp"]
-
-    parameterized do |params|
-      define :g do
-        params[:p]
-      end
-    end
   end
 
-  class I
-    include N[:p => "INp"]
-  end
+  class I ; include N[] ; end
+  class E ; extend  N[] ; end
 
-  class E
-    extend N[:p => "ENp"]
-  end
+  class Ix ; include N[:p=>"IxNp"] ; end
+  class Ex ; extend  N[:p=>"ExNp"] ; end
 
   # -- tests --------------------------------
 
-  def test_include_f
+  def test_include_if
     assert_equal( "NMp", I.new.f )
   end
 
-  def test_include_g
-    assert_equal( "INp", I.new.g )
-  end
-
-  def test_extend_f
+  def test_extend_ef
     assert_equal( "NMp", E.f )
   end
 
-  def test_extend_g
-    assert_equal( "ENp", E.g )
+  def test_include_ixf
+    assert_equal( "NMp", I.new.f )
+  end
+
+  def test_extend_exf
+    assert_equal( "NMp", E.f )
   end
 
 end

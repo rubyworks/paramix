@@ -1,7 +1,7 @@
 require 'paramix'
 require 'test/unit'
 
-class TC_Paramix_Extend < Test::Unit::TestCase
+class TC_Paramix_Nested_Simple < Test::Unit::TestCase
 
   # -- fixture ------------------------------
 
@@ -9,30 +9,32 @@ class TC_Paramix_Extend < Test::Unit::TestCase
     include Paramix::Parametric
 
     parameterized do |params|
-
       define :f do
         params[:p]
       end
-
     end
   end
 
-  class C1
-    extend M[:p => "mosh"]
+  module N
+    include M[:p=>"NMp"]
   end
 
-  class C2
-    extend M[:p => "many"]
+  class I
+    include N
+  end
+
+  class E
+    extend  N
   end
 
   # -- tests --------------------------------
 
-  def test_class_1
-    assert_equal( "mosh", C1.f )
+  def test_include_if
+    assert_equal( "NMp", I.new.f )
   end
 
-  def test_class_2
-    assert_equal( "many", C2.f )
+  def test_extend_ef
+    assert_equal( "NMp", E.f )
   end
 
 end

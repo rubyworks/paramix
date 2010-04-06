@@ -6,10 +6,14 @@ class TC_Paramix_Include < Test::Unit::TestCase
   # -- fixture ------------------------------
 
   module M
-    include Paramix
+    include Paramix::Parametric
 
-    def f
-      mixin_param(M,:p)
+    parameterized do |params|
+
+      define :f do
+        params[:p]
+      end
+
     end
   end
 

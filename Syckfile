@@ -6,12 +6,20 @@ announce:
   mailto  : ruby-talk@ruby-lang.org
   active  : true
 
+grancher:
+  service: grancher
+  active:  true
+
 box:
   service: Box
-  active : true
   types  : [gem, tar]
+  active : true
+
+mast:
+  service: Mast
   include: [bin, demo, lib, meta, test, "[A-Z]*"]
   exclude: ~
+  active:  true
 
 rdoc:
   service  : RDoc

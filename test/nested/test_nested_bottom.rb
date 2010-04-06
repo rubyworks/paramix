@@ -6,45 +6,49 @@ class TC_Paramix_Nested_Bottom < Test::Unit::TestCase
   # -- fixture ------------------------------
 
   module M
-    include Paramix
+    include Paramix::Parametric
 
-    def f
-      mixin_param(M,:p)
+    parameterized do |params|
+      define :f do
+        params[:p]
+      end
     end
   end
 
   module N
     include M
 
-    def g
-      mixin_param(N,:p)
+    parameterized do |params|
+      define :g do
+        params[:p]
+      end
     end
   end
 
   class I
-    include N[:p => "mosh"]
+    include N[:p => "INp"]
   end
 
   class E
-    extend N[:p => "many"]
+    extend N[:p => "ENp"]
   end
 
   # -- tests --------------------------------
 
   def test_include_f
-    assert_equal( "mosh", I.new.f )
+    assert_equal( "INp", I.new.f )
   end
 
   def test_include_g
-    assert_equal( "mosh", I.new.g )
+    assert_equal( "INp", I.new.g )
   end
 
   def test_extend_f
-    assert_equal( "many", E.f )
+    assert_equal( "ENp", E.f )
   end
 
   def test_extend_g
-    assert_equal( "many", E.g )
+    assert_equal( "ENp", E.g )
   end
 
 end

@@ -1,0 +1,71 @@
+= Basic Overviw of Paramix
+
+Require the library.
+
+  require 'paramix3'
+
+Create a parametric mixin.
+
+    module MyMixin
+      include Parametric
+
+      def f
+        mymixin.name
+      end
+    end
+
+Create a class that uses the mixin and set the parameter.
+
+    class X
+      include MyMixin[:name => 'x']
+    end
+
+Then the parameter is accessible.
+
+    X.new.f.assert == 'x'
+
+If we create another parametric mixin which depends on the first.
+
+    module AnotherMixin
+      include MyMixin[:name => 'x']
+
+      def g
+        anothermixin.name
+      end
+    end
+
+And a class for it.
+
+    class Y
+      include AnotherMixin[:name => 'y']
+    end
+
+We can see that the parameters stay with their respective mixins.
+
+    Y.new.f.assert == 'x'
+    Y.new.g.assert == 'y'
+
+However if we do the same, but do not paramterize the first module when
+it gets included:
+
+    module ThirdMixin
+      include MyMixin #[] #[:name => 'x']
+
+      def g
+        thirdmixin.name
+      end
+    end
+
+And a class for it.
+
+    class Z
+      include ThirdMixin[:name => 'y']
+    end
+
+We can see that the value of the parameter has 'propogated up'
+to its ancestor parametric modules.
+
+    Z.new.f.assert == 'y'
+    Z.new.g.assert == 'y'
+
+

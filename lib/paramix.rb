@@ -1,190 +1,116 @@
-# = Parametric Mixin
-#
-# Parametric Mixins provides parameters for mixin modules.
-# Module parameters can be set at the time of inclusion 
-# or extension using Module#[] method, then parameters
-# can be accessed via the #mixin_param and #mixin_parameters
-# methods.
-#
-#   module MyMixin
-#     include Paramix
-#
-#     def hello
-#       puts "Hello from #{ mixin_param(MyMixin, :name) }!"
-#     end
-#   end
-#
-#   class MyClass
-#     include MyMixin[:name => 'Ruby']
-#   end
-#
-#   m = MyClass.new
-#   m.hello   #=> 'Hello from Ruby!'
-#
-# You can view the full set of parameters via the +mixin_parameters+ method.
-#
-#   MyClass.mixin_parameters  #=> {MyMixin => {:name => 'ruby'}}
-#
-# Including Paramix into a module is essentially equivalent to defining
-# a module method:
-#
-#   def [](parameters)
-#     Paramix::Proxy.new(self, parameters)
-#   end
-#
-# Paramix::Proxy.new can also take a block that injects code into the
-# mixin. This is useful as an alternative to using the #included
-# callback for creating metaclass dynamics based on mixin parameters.
-# For example:
-#
-#   module MyMixin
-#     def self.[](parameters)
-#       Paramix::Mixin.new(self, parameters) do
-#         attr_accessor parameters[:name]
-#       end
-#     end
-#   end
-#
-# As opposed to:
-#
-#   module MyMixin
-#     include Paramix
-#
-#     def self.included(base)
-#       base.class_eval do
-#         attr_accessor base.mixin_parameters[MyMixin][:name]
-#       end
-#       super(base)
-#     end
-#   end
+# paramix.rb, Copyright (c)2010 Thomas Sawyer [MIT License]
+
+# Paramix project namespace.
 #
 module Paramix
 
+  # = Parametric
   #
-  def self.included(base)
-    base.extend(ClassMethods)
-    super(base)
-  end
-
+  # Parametric mixins provides parameters for mixin modules.
+  # Module parameters can be set at the time of inclusion 
+  # or extension using Module#[] method, then parameters
+  # can be accessed via the #mixin_parameters method.
   #
-  module ClassMethods
-    def [](parameters)
-      Proxy.new(self, parameters)
-    end
-
-    def included(base)
-      base.extend(ClassMethods)
-      super(base)
-    end
-  end
-
-  class Proxy < Module
-    attr :mixin
-    attr :parameters
-    attr :block
-
-    #
-    def initialize(mixin, parameters, &block)
-      @mixin      = mixin
-      @parameters = parameters || {}
-      @block      = block
-    end
+  #   module MyMixin
+  #     include Paramix::Parametric
+  #
+  #     parameterized |params|
+  #       define_method :hello do
+  #         puts "Hello from #{params[:name]}!"
+  #       end
+  #     end
+  #   end
+  #
+  #   class MyClass
+  #     include MyMixin[:name => 'Ruby']
+  #   end
+  #
+  #   MyClass.new.hello   #=> 'Hello from Ruby!'
+  #
+  #
+  module Parametric
 
     #
-    def append_features(base)
-      mixin = @mixin
-
-      base.mixin_parameters[mixin] ||= {}
-      base.mixin_parameters[mixin].update(@parameters)
-
-      mixin.module_eval{ append_features(base) }
-
-      base.module_eval{ include InstanceParameterize }
-      #base.extend ClassParameterize
-
-      mixin.module_eval{ included(base) }
-
-      base.module_eval(&@block) if @block
+    def self.included(base)
+      base.extend(Extensions)
     end
 
     #
-    def extend_object(base)
-      mixin = @mixin
-
-      metabase = (class << base; self; end)
-
-      metabase.mixin_parameters[mixin] ||= {}
-      metabase.mixin_parameters[mixin].update(@parameters)
-
-      mixin.module_eval{ extend_object(base) }
-
-      base.extend ClassParameterize
-
-      metabase.module_eval(&@block) if @block
-    end
-
-    #
-    module InstanceParameterize
+    module Extensions
       #
-      def mixin_param(m, n)
-        h = {}; r = nil
-        self.class.ancestors.each do |a|
-          break if Paramix == a
-          break if m == a
-          q = a.mixin_parameters
-          #if q = Paramix.mixin_params[a]
-            if q[m] && q[m].key?(n)
-              r = q[m][n]
-            else
-              q.each do |k,v|
-                h.update(v)
-              end
-            end
-          #end
-        end
-        r ? r : h[n]
+      def [](parameters={})
+        Mixin.new(self, parameters)
       end
-    end
 
-    #
-    module ClassParameterize
       #
-      def mixin_param(m, n)
-        h = {}; r = nil
-        ancestors.each do |a|
-          break if Paramix==a
-          if q = a.meta_class.mixin_parameters #[class << a; self ; end]
-          #if q = Paramix.mixin_params[class << a; self ; end]
-            if q[m] && q[m].key?(n)
-              r = q[m][n]
-            else
-              q.each do |k,v|
-                h.update(v)
-              end
-            end
-          end
+      def parameterized(&code)
+        @code ||= []
+        if block_given?
+          @code << code
+        else
+          @code
         end
-        r ? r : h[n]
       end
+
+      def append_features(base)
+        return super(base) if Mixin === base || Mixin === self
+
+        base.extend(Extensions)
+
+        anc = ancestors.find{ |a| a.respond_to?(:parameterized) }
+        base.parameterized.concat(anc.parameterized)
+
+        super(base)
+      end
+
+      #
+      def extend_object(base)
+        return super(base) if Mixin === base || Mixin === self
+
+        base.extend(Extensions)
+
+        anc = ancestors.find{ |a| a.respond_to?(:parameterized) }
+        base.parameterized.concat(anc.parameterized)
+
+        super(base)
+      end
+
+    end
+
+    # An instance of the Mixin module class is what is porduced
+    # when parameters are applied to a parametric module.
+    #
+    class Mixin < Module
+
+      def initialize(base, parameters)
+        include(base)
+        #base.append_features(self)
+        base.parameterized.each do |code|
+          instance_exec(parameters, &code)
+        end
+        #base.parameterized.clear
+      end
+
+      #
+      def public(name, &code)
+        define_method(name, &code)
+        super(name)
+      end
+
+      #
+      def private(name, &code)
+        define_method(name, &code)
+        super(name)
+      end
+
+      #
+      def protected(name, &code)
+        define_method(name, &code)
+        super(name)
+      end
+
     end
 
   end
 
-end
-
-#
-class Module
-
-  def mixin_parameters
-    @mixin_params ||= {}
-  end
-
-  alias_method :mixin_params, :mixin_parameters
-
-end
-
-module Kernel
-  def meta_class
-    (class << self; self; end)
-  end
 end
