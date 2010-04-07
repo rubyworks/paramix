@@ -9,7 +9,7 @@ class TC_Paramix_Nested_Simple < Test::Unit::TestCase
     include Paramix::Parametric
 
     parameterized do |params|
-      define :f do
+      public :f do
         params[:p]
       end
     end

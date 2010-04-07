@@ -12,7 +12,7 @@ class TC_Paramix_Callback < Test::Unit::TestCase
 
     parameterized do |params|
 
-      define :f do
+      public :f do
         params[:p]
       end
 

@@ -10,7 +10,7 @@ class TC_Paramix_Extend < Test::Unit::TestCase
 
     parameterized do |params|
 
-      define :f do
+      public :f do
         params[:p]
       end
 

@@ -9,7 +9,7 @@ class TC_Paramix_Nested_Top < Test::Unit::TestCase
     include Paramix::Parametric
 
     parameterized do |params|
-      define :f do
+      public :f do
         params[:p]
       end
     end
@@ -20,7 +20,7 @@ class TC_Paramix_Nested_Top < Test::Unit::TestCase
     include M[:p=>"mood"]
 
     parameterized do |params|
-      define :g do
+      public :g do
         params[:p]
       end
     end

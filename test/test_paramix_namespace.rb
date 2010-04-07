@@ -9,7 +9,7 @@ class TC_Paramix_Namespace < Test::Unit::TestCase
     module M
       include Paramix::Parametric
       parameterized do |params|
-        define :f do
+        public :f do
           params[:p]
         end
       end
