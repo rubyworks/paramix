@@ -76,27 +76,13 @@
         <h3 class="section-header">Namespace</h3>
         <ul class="link-list">
           
-          <li class="module"><a href="Paramix/ClassMethods.html">Paramix::ClassMethods</a></li>
-          
-          <li class="class"><a href="Paramix/Proxy.html">Paramix::Proxy</a></li>
+          <li class="module"><a href="Paramix/Parametric.html">Paramix::Parametric</a></li>
           
         </ul>
       </div>
       
 
       <!-- Method Quickref -->
-      
-      <div id="method-list-section" class="section">
-        <h3 class="section-header">Methods</h3>
-        <ul class="link-list">
-          
-            
-            <li class="singleton">
-              <a href="#M000000">::included</a>
-            </li>
-          
-        </ul>
-      </div>
       
 
       <!-- Included Modules -->
@@ -110,7 +96,7 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="../files/HISTORY.html">HISTORY</a></li>
+          <li class="file"><a href="../files/HISTORY_rdoc.html">HISTORY.rdoc</a></li>
         
           <li class="file"><a href="../files/Syckfile.html">Syckfile</a></li>
         
@@ -140,17 +126,11 @@
         
           <li class="module"><a href="../classes/Paramix.html">Paramix</a></li>
         
-          <li class="module"><a href="../classes/Paramix/ClassMethods.html">Paramix::ClassMethods</a></li>
+          <li class="module"><a href="../classes/Paramix/Parametric.html">Paramix::Parametric</a></li>
         
-          <li class="class"><a href="../classes/Paramix/Proxy.html">Paramix::Proxy</a></li>
+          <li class="module"><a href="../classes/Paramix/Parametric/Extensions.html">Paramix::Parametric::Extensions</a></li>
         
-          <li class="module"><a href="../classes/Paramix/Proxy/ClassParameterize.html">Paramix::Proxy::ClassParameterize</a></li>
-        
-          <li class="module"><a href="../classes/Paramix/Proxy/InstanceParameterize.html">Paramix::Proxy::InstanceParameterize</a></li>
-        
-          <li class="module"><a href="../classes/Kernel.html">Kernel</a></li>
-        
-          <li class="class"><a href="../classes/Module.html">Module</a></li>
+          <li class="class"><a href="../classes/Paramix/Parametric/Mixin.html">Paramix::Parametric::Mixin</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -171,76 +151,12 @@
 
     <div id="description">
       
+        <h1>Paramix</h1>
+      
 
-      <h1>Parametric Mixin</h1>
-<p>
-Parametric Mixins provides parameters for mixin modules. <a
-href="Module.html">Module</a> parameters can be set at the time of
-inclusion or extension using Module#[] method, then parameters can be
-accessed via the mixin_param and mixin_parameters methods.
+      <p>
+<a href="Paramix.html">Paramix</a> project namespace.
 </p>
-<pre>
-  module MyMixin
-    include Paramix
-
-    def hello
-      puts &quot;Hello from #{ mixin_param(MyMixin, :name) }!&quot;
-    end
-  end
-
-  class MyClass
-    include MyMixin[:name =&gt; 'Ruby']
-  end
-
-  m = MyClass.new
-  m.hello   #=&gt; 'Hello from Ruby!'
-</pre>
-<p>
-You can view the full set of parameters via the <tt>mixin_parameters</tt>
-method.
-</p>
-<pre>
-  MyClass.mixin_parameters  #=&gt; {MyMixin =&gt; {:name =&gt; 'ruby'}}
-</pre>
-<p>
-Including <a href="Paramix.html">Paramix</a> into a module is essentially
-equivalent to defining a module method:
-</p>
-<pre>
-  def [](parameters)
-    Paramix::Proxy.new(self, parameters)
-  end
-</pre>
-<p>
-<a href="Paramix/Proxy.html#M000003">Paramix::Proxy.new</a> can also take a
-block that injects code into the mixin. This is useful as an alternative to
-using the <a href="Paramix.html#M000000">included</a> callback for creating
-metaclass dynamics based on mixin parameters. For example:
-</p>
-<pre>
-  module MyMixin
-    def self.[](parameters)
-      Paramix::Mixin.new(self, parameters) do
-        attr_accessor parameters[:name]
-      end
-    end
-  end
-</pre>
-<p>
-As opposed to:
-</p>
-<pre>
-  module MyMixin
-    include Paramix
-
-    def self.included(base)
-      base.class_eval do
-        attr_accessor base.mixin_parameters[MyMixin][:name]
-      end
-      super(base)
-    end
-  end
-</pre>
 
     </div>
 
@@ -252,45 +168,6 @@ As opposed to:
 
     <!-- Methods -->
     
-    <div id="public-class-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="included-method" class="method-detail ">
-        <a name="M000000"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">included</span><span
-            class="method-args">(base)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="included-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/paramix.rb, line 64</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
-    <span class="ruby-identifier">base</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">ClassMethods</span>)
-    <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">base</span>)
-  <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-    </div>
-  
 
   </div>
 
