@@ -1,0 +1,20 @@
+--- 
+title  : Paramix
+suite  : rubyworks
+summary: Parametric Mixins
+license: MIT
+contact: trans <transfire@gmail.com>
+authors: Thomas Sawyer
+created: 2006-01-01
+
+description:
+  Parametric Mixins provides parameters for mixin modules.
+
+resources:
+  homepage   : http://rubyworks.github.com/paramix
+  development: http://github.com/rubyworks/paramix
+  repository : git://github.com/rubyworks/paramix.git
+
+copyright:
+  Copyright (c) 2006 Thomas Sawyer
+
