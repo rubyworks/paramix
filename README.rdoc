@@ -39,11 +39,11 @@ it's return value.
   X.new.foo  #=> 'bar'
 
 
-== COPYRIGHTS
+== COPYRIGHT
 
-Copyright (c) 2006,2010 Thomas Sawyer
+Copyright (c) 2006 Thomas Sawyer
 
-This program is ditributed unser the terms of the MIT license.
+This program is ditributed unser the terms of the Apache 2.0 license.
 
 See LICENSE file for details.
 

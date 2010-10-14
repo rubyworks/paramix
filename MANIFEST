@@ -1,0 +1,16 @@
+#!mast bin demo lib meta qed spec [A-Z]*
+lib/paramix.rb
+qed/01_basic.rdoc
+qed/02_general.rdoc
+qed/03_battery.rdoc
+spec/nested_spec.rb
+spec/paramix_dynamic_spec.rb
+spec/paramix_extend_spec.rb
+spec/paramix_include_spec.rb
+spec/paramix_namespace_spec.rb
+HISTORY.rdoc
+PROFILE
+LICENSE
+README.rdoc
+Syckfile
+VERSION
