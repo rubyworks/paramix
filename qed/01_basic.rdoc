@@ -1,4 +1,4 @@
-= Basic Overview of Paramix Parametric Mixins
+= Basic Example
 
 Require the library.
 
@@ -27,6 +27,9 @@ Create a class that uses the mixin and set the parameter.
 Then the parameter is accessible.
 
     X.new.f.assert == 1
+
+
+= Nested Parematric Mixins
 
 If we create another parametric mixin which depends on the first.
 
@@ -81,5 +84,4 @@ ancestor parametric module.
 
     Z.new.q.assert == 3
     Z.new.r.assert == 3
-
 

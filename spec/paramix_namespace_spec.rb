@@ -1,9 +1,6 @@
 require 'paramix'
-require 'test/unit'
 
-class TC_Paramix_Namespace < Test::Unit::TestCase
-
-  # -- fixture ------------------------------
+describe "namespace depth does not adversly effect parametric mixins" do
 
   module N
     module M
@@ -25,14 +22,13 @@ class TC_Paramix_Namespace < Test::Unit::TestCase
     end
   end
 
-  # -- tests --------------------------------
 
-  def test_class_1
-    assert_equal( "mosh", Q::I.new.f )
+  it "should" do
+     Q::I.new.f == "mosh"
   end
 
-  def test_class_2
-    assert_equal( "many", Q::E.f )
+  it "should" do
+    Q::E.f.should == "many"
   end
 
 end
