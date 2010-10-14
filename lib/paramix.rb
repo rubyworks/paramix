@@ -1,6 +1,10 @@
-# paramix.rb, Copyright (c)2010 Thomas Sawyer [MIT License]
+# Paramix
+# Copyright 2010 Thomas Sawyer
+# Apache 2.0 License
 
-# Paramix project namespace.
+require 'paramix/version'
+
+# Paramix namespace.
 #
 module Paramix
 
@@ -26,7 +30,6 @@ module Paramix
   #   end
   #
   #   MyClass.new.hello   #=> 'Hello from Ruby!'
-  #
   #
   module Parametric
 
