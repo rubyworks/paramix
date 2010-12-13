@@ -1,7 +1,1 @@
-name    : paramix
-date    : 2010-04-06
-version : 2.0.0
-
-requires:
-  - syckle (build)
-  - qed    (test)
+2.0.0

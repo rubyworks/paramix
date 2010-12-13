@@ -1,4 +1,6 @@
-#!mast bin demo lib meta qed spec [A-Z]*
+#!mast -x Syckfile -x PROFILE .ruby bin demo lib man qed spec test [A-Z]*
+.ruby
+lib/paramix/version.rb
 lib/paramix.rb
 qed/01_basic.rdoc
 qed/02_general.rdoc
@@ -9,8 +11,6 @@ spec/paramix_extend_spec.rb
 spec/paramix_include_spec.rb
 spec/paramix_namespace_spec.rb
 HISTORY.rdoc
-PROFILE
 LICENSE
 README.rdoc
-Syckfile
 VERSION
