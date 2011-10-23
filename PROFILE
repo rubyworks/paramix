@@ -1,14 +1,13 @@
 --- 
 title  : Paramix
 summary: Parametric Mixins
-contact: trans <transfire@gmail.com>
-
-requires:
-  - syckle (build)
-  - qed    (test)
 
 description:
   Parametric Mixins provides parameters for mixin modules.
+
+requirements:
+  - detroit (build)
+  - qed     (test)
 
 resources:
   home: http://rubyworks.github.com/paramix
@@ -16,10 +15,11 @@ resources:
   repo: git://github.com/rubyworks/paramix.git
 
 authors:
-  - Thomas Sawyer
+  - Thomas Sawyer <transfire@gmail.com>
 
 organization : RubyWorks
 created      : 2006-01-01
-license      : Apache 2.0
-copyright    : Copyright (c) 2006 Thomas Sawyer
+copyright    : Copyright (c) 2006 Thomas Sawyer (BSD-2-Clause)
 
+name: paramix
+version: 2.0.1

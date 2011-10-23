@@ -43,7 +43,7 @@ it's return value.
 
 Copyright (c) 2006 Thomas Sawyer
 
-This program is ditributed unser the terms of the Apache 2.0 license.
+This program is ditributed unser the terms of the BSD-2-Clause license.
 
-See LICENSE file for details.
+See COPYING.rdoc file for details.
 
