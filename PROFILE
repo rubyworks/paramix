@@ -12,7 +12,9 @@ requirements:
 resources:
   home: http://rubyworks.github.com/paramix
   code: http://github.com/rubyworks/paramix
-  repo: git://github.com/rubyworks/paramix.git
+
+repositories:
+  upstream: git://github.com/rubyworks/paramix.git
 
 authors:
   - Thomas Sawyer <transfire@gmail.com>

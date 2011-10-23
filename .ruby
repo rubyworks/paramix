@@ -21,11 +21,13 @@ requirements:
   development: true
 dependencies: []
 conflicts: []
-repositories: []
+repositories:
+- uri: git://github.com/rubyworks/paramix.git
+  scm: git
+  name: upstream
 resources:
   home: http://rubyworks.github.com/paramix
   code: http://github.com/rubyworks/paramix
-  repo: git://github.com/rubyworks/paramix.git
 extra: {}
 load_path:
 - lib
