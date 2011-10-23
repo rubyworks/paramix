@@ -1,5 +1,6 @@
 #!mast .ruby .yardopts bin demo eg lib man qed spec test [A-Z]*.*
 .ruby
+.yardopts
 lib/paramix/version.rb
 lib/paramix.rb
 qed/01_basic.rdoc
@@ -11,4 +12,6 @@ spec/paramix_extend_spec.rb
 spec/paramix_include_spec.rb
 spec/paramix_namespace_spec.rb
 HISTORY.rdoc
+QED.rdoc
 README.md
+COPYING.rdoc

@@ -1,5 +1,16 @@
 = RELEASE HISTORY
 
+== 2.0.1 // 2011-10-22
+
+This release simply brings the project uptodate with the latest
+build tools, and switches the license to BSD-2-Clause.
+
+Changes:
+
+* Modernize build configuration.
+* Switch to FreeBSD license.
+
+
 == 2.0.0 // 2010-04-06
 
 Thanks to a conversation with Jonathan Rochkind, Paramix has

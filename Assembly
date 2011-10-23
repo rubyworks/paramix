@@ -1,79 +1,48 @@
 ---
-announce:
-  service : Email
-  file    : ~
-  subject : ~
-  mailto  : ruby-talk@ruby-lang.org
-  active  : true
+email:
+  mailto:
+    - ruby-talk@ruby-lang.org
+    - rubyworks-mailinglist@googlegroups.com
 
-grancher:
-  service: grancher
-  active:  true
+gem:
+  active: true
 
-box:
-  service: Box
-  types  : [gem, tar]
+github:
   active : true
 
-mast:
-  service: Mast
-  include: [bin, demo, lib, meta, test, "[A-Z]*"]
+#mast:
+#  service: Mast
+#  include: [bin, demo, lib, meta, test, "[A-Z]*"]
+#  exclude: ~
+#  active:  true
+
+yard:
+  priority: 2
+
+dnote:
+  labels: ~
+  output: log/NOTES.rdoc
+
+qed:
+  files: qed/
+
+qedoc:
+  files : qed/
+  title : Paramix Demonstrandum
+  output: QED.rdoc
+
+rspec:
+  include: spec/
   exclude: ~
-  active:  true
-
-rdoc:
-  service  : RDoc
-  template : redfish
-  include  : ~
-  exclude  : ~
-  main     : ~
-  extra    : ~
-  output   : site/docs/api
-  active   : true
-
-ridoc:
-  service: RIDoc
-  include: ~
-  exclude: ~
-  output : ri
-  active : true
-
-notes:
-  service  : DNotes
-  loadpath : ~
-  labels   : ~
-  output   : ~
-  format   : ~
-  active   : false
-
-stats:
-  service  : Stats
-  title    : ~
-  loadpath : ~
-  exclude  : ~
-  output   : ~
-  active   : true
-
-testrb:
-  service  : testrb
-  tests    : ~
-  exclude  : ~
-  loadpath : ~
-  requires : ~
-  live     : false   
-  active   : true
+  loadpath: [lib]
+  requires: ~
+  active: false
 
 syntax:
-  service  : Syntax
-  loadpath : ~
-  exclude  : ~
-  active   : false
+  files: lib/
 
 vclog:
-  service  : VClog
-  format   : html   # xml, txt
-  layout   : rel    # gnu
-  typed    : false
-  output   : ~
-  active   : false
+  output:
+    - log/Changes.rdoc
+    - log/History.rdoc
 

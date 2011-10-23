@@ -1,5 +1,7 @@
 .reap/digest
 .yardoc
+doc
 log
 pkg
 tmp
+QED.rdoc

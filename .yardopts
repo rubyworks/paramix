@@ -1,0 +1,7 @@
+--output-dir doc/yard
+--protected
+--private
+lib
+-
+[A-Z]*.*
+
