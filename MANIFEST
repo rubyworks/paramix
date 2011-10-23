@@ -11,4 +11,4 @@ spec/paramix_extend_spec.rb
 spec/paramix_include_spec.rb
 spec/paramix_namespace_spec.rb
 HISTORY.rdoc
-README.rdoc
+README.md
