@@ -1,6 +1,4 @@
-require 'paramix'
-
-describe "nested modules where inner most module is parametric" do
+Given nested modules where inner most module is parametric.
 
   m = Module.new do
     include Paramix::Parametric
@@ -24,18 +22,15 @@ describe "nested modules where inner most module is parametric" do
     extend  n
   end
 
+Then
 
-  it "should" do
     i.new.f.should == "NMp"
-  end
 
-  it "should" do
+And
+
     e.f.should == "NMp"
-  end
 
-end
-
-describe "nested parametric mixins with parameters" do
+Nested parametric mixins with parameters.
 
   m = Module.new do
     include Paramix::Parametric
@@ -66,26 +61,23 @@ describe "nested parametric mixins with parameters" do
     extend n[:p => "ENp"]
   end
 
+Then
 
-  it "should" do
     i.new.f.should == "NMp"
-  end
 
-  it "should" do
+And
+
     i.new.g.should == "INp"
-  end
 
-  it "should" do
+And
+
     e.f.should == "NMp"
-  end
 
-  it "should" do
-    e.g.should == "ENp"
-  end
+And
+   
+   e.g.should == "ENp"
 
-end
-
-describe "nested parametric mixins without parameters" do
+Given nested parametric mixins without parameters.
 
   m = Module.new do
     include Paramix::Parametric
@@ -115,26 +107,23 @@ describe "nested parametric mixins without parameters" do
     extend n[:p => "ENp"]
   end
 
+Then
 
-  it "should" do
     i.new.f.should == "INp"
-  end
 
-  it "should" do
+And
+
     i.new.g.should == "INp"
-  end
 
-  it "should" do
+And
+
     e.f.should == "ENp"
-  end
 
-  it "should" do
+And
+
     e.g.should == "ENp"
-  end
 
-end
-
-describe "nested parametric mixins where the outer is not parameterized" do
+Given nested parametric mixins where the outer is not parameterized.
 
   m = Module.new do
     include Paramix::Parametric
@@ -157,27 +146,25 @@ describe "nested parametric mixins where the outer is not parameterized" do
   ix = Class.new do ; include n[:p=>"IxNp"] ; end
   ex = Class.new do ; extend  n[:p=>"ExNp"] ; end
 
+Then
 
-  it "should" do
     i.new.f.should == "NMp"
-  end
 
-  it "should" do
+
+And
+
     e.f.should == "NMp"
-  end
 
-  it "should" do
+And
+
     i.new.f.should == "NMp"
-  end
 
-  it "should" do
+And
+
     e.f.should == "NMp"
-  end
-
-end
 
 
-describe "nested parametric mixins both parameterized" do
+Given nested parametric mixins both parameterized.
 
   m = Module.new do
     include Paramix::Parametric
@@ -208,22 +195,19 @@ describe "nested parametric mixins both parameterized" do
     extend n[]
   end
 
+Then
 
-  it "should" do
     i.new.f.should == "mood"
-  end
 
-  it "should" do
+And
+
     i.new.g.should == nil  # TODO: or error ?
-  end
 
-  it "should" do
+And
+
     e.f.should == "mood"
-  end
 
-  it "should" do
+And
+
     e.g.should == nil
-  end
-
-end
 

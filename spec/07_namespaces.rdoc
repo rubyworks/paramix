@@ -1,6 +1,4 @@
-require 'paramix'
-
-describe "namespace depth does not adversly effect parametric mixins" do
+Given namespace depth does not adversly effect parametric mixins.
 
   module N
     module M
@@ -22,14 +20,11 @@ describe "namespace depth does not adversly effect parametric mixins" do
     end
   end
 
+Then
 
-  it "should" do
-     Q::I.new.f == "mosh"
-  end
+  Q::I.new.f == "mosh"
 
-  it "should" do
-    Q::E.f.should == "many"
-  end
+And
 
-end
+  Q::E.f.should == "many"
 

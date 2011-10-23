@@ -4,7 +4,7 @@ Project::   Paramix
 Copyright:: (c) 2006 Rubyworks
 License::   BSD-2-Clause
 Website::   http://rubyworks.github.com/paramix
-GitHub::    http://github.com/rubyworks/paramix
+Source::    http://github.com/rubyworks/paramix
 Status::    {<img src="http://travis-ci.org/rubyworks/paramix.png" />}[http://travis-ci.org/rubyworks/paramix]
 
 
@@ -20,10 +20,10 @@ parameters provided.
 Please see the HISTORY.rdoc file.
 
 
-== Example
+== Examples
 
 Here is the most basic example. It simply makes the parametric module's
-parameters available to the instance level.
+parameters available at the instance level.
 
     module M
       include Paramix::Parametric
@@ -45,9 +45,9 @@ parameters available to the instance level.
 
     X.new.hello  #=> 'Hello, Charlie!'
 
-Because the +parameterized+ method defines a block that is evaluate in the
-context of new Parametric::Mixin, it is possible to work with the parameters
-in more versitle ways. Here is a simple example that uses a a parameter to
+Because the +parameterized+ method defines a block that is evaluated in the
+context of a new Parametric::Mixin, it is possible to work with the parameters
+in more versitle ways. Here is a simple example that uses a parameter to
 define a method and another parameter to define it's return value.
 
     module M

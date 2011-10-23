@@ -6,5 +6,5 @@ rvm:
   - rbx-2.0
   - jruby
   - ree
-script: "bundle exec qed -Ilib qed/"
+script: "bundle exec qed -Ilib spec/"
 
