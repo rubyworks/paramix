@@ -6,21 +6,21 @@
 | License    | BSD-2-Clause                        |
 | Website    | http://rubyworks.github.com/paramix |
 | GitHub     | http://github.com/rubyworks/paramix |
+| Status     | [![Build Status](https://secure.travis-ci.org/rubyworks/paramix.png)](http://travis-ci.org/rubyworks/paramix) |
 
-
-## DESCRIPTION
+## Description
 
 Parametric Mixins provides an easy means to "functionalize" modules.
 The module can then be differentiated upon usage according to the
 parameters provided.
 
 
-## RELEASE NOTES
+## Release Notes
 
-Please see HISTORY.rdoc file.
+Please see the HISTORY.rdoc file.
 
 
-## EXAMPLE
+## Example
 
 Here is a simple example that uses a a parameter 
 to define a method and another parameter to define
@@ -43,7 +43,7 @@ it's return value.
     X.new.foo  #=> 'bar'
 
 
-## COPYRIGHT
+## Copyrights
 
 Copyright (c) 2006 Thomas Sawyer
 
