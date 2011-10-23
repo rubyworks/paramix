@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: HISTORY
+  
+    &mdash; Documentation by YARD 0.7.3
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: HISTORY</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'>
+<h1>RELEASE HISTORY</h1>
+
+<h2>2.0.1 // 2011-10-22</h2>
+
+<p>This release simply brings the project uptodate with the latest build
+tools, and switches the license to BSD-2-Clause.</p>
+
+<p>Changes:</p>
+<ul><li>
+<p>Modernize build configuration.</p>
+</li><li>
+<p>Switch to FreeBSD license.</p>
+</li></ul>
+
+<h2>2.0.0 // 2010-04-06</h2>
+
+<p>Thanks to a conversation with Jonathan Rochkind, Paramix has been
+completely rewritten.  Whereas anonymous modules were avoided in prior
+versions, it has become clear that the worries of memory consumption that
+would accompany them were largely  unfounded. This new version therefore
+makes use of them. The new code is refreshingly concise, and the design
+fully comforming to POLS.</p>
+
+<p>Changes:</p>
+<ul><li>
+<p>Use anonymous modules instead of global parameter stores.</p>
+</li><li>
+<p>Use paramterized block for dynamic definitions.</p>
+</li></ul>
+
+<h2>1.1.0 // 2010-04-05</h2>
+
+<p>The previous versions did not properly support nested parametric includes,
+i.e. including one parametirc mixin into another. This release fixed this
+issue. However, to do so provided difficult and required some changes to
+the API. In particular, instead of +<a
+href="http://M">mixin_params</a>[:p]+ one must now use <tt>mixin_param(M,:p)</tt>.
+It was not longer possible to simply return a hash, since special lookup
+logic is required to handle nested mixins. It should also be noted that
+<tt>Module#mixin_parameters</tt>, which stores the actual parameters is no longer
+accessible at the instance level, just as <tt>mixin_param()</tt> is soley an
+instance method (at the class level it is used to access the singleton
+parameters).</p>
+
+<p>Changes:</p>
+<ul><li>
+<p>Proper support for nested parametric mixins.</p>
+</li><li>
+<p>Provide #mixin_param method to lookup parameters.</p>
+</li><li>
+<p>The mixin_parameters method is class-level only.</p>
+</li></ul>
+
+<h2>1.0.1 // 2010-04-03</h2>
+
+<p>This release simply removed dependencies on Facets.</p>
+
+<p>Changes:</p>
+<ul><li>
+<p>Removed dependencies on Facets module/basename and module/modspace.</p>
+</li><li>
+<p>Divided tests into separate files.</p>
+</li></ul>
+
+<h2>1.0.0 // 2009-06-29</h2>
+
+<p>This is the initial stand-alone release of Paramix spun-off from Ruby
+Facets (and is actually he second major version, the original being spun of
+from the Nitro/Og Glue library).</p>
+
+<p>Changes:</p>
+<ul><li>
+<p>Happy Birthday!</p>
+</li></ul>
+</div></div>
+    
+    <div id="footer">
+  Generated on Sat Oct 22 21:21:21 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.3 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

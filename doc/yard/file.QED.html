@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: QED
+  
+    &mdash; Documentation by YARD 0.7.3
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: QED</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'>
+<h1>Basic Example</h1>
+
+<p>Require the library.</p>
+
+<pre class="code"><span class='id require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>paramix</span><span class='tstring_end'>'</span></span></pre>
+
+<p>Create a parametric mixin.</p>
+
+<pre class="code"><span class='kw'>module</span> <span class='const'>MyMixin</span>
+  <span class='id include'>include</span> <span class='const'>Paramix</span><span class='op'>::</span><span class='const'>Parametric</span>
+
+  <span class='id parameterized'>parameterized</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id params'>params</span><span class='op'>|</span>
+
+    <span class='id public'>public</span> <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='kw'>do</span>
+      <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+
+<p>Create a class that uses the mixin and set the parameter.</p>
+
+<pre class="code"><span class='kw'>class</span> <span class='const'>X</span>
+  <span class='id include'>include</span> <span class='const'>MyMixin</span><span class='lbracket'>[</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>f</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:value</span><span class='op'>=&gt;</span><span class='int'>1</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+
+<p>Then the parameter is accessible.</p>
+
+<pre class="code"><span class='const'>X</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id f'>f</span><span class='period'>.</span><span class='id assert'>assert</span> <span class='op'>==</span> <span class='int'>1</span></pre>
+
+<h1>Nested Parematric Mixins</h1>
+
+<p>If we create another parametric mixin which depends on the first.</p>
+
+<pre class="code"><span class='kw'>module</span> <span class='const'>AnotherMixin</span>
+  <span class='id include'>include</span> <span class='const'>Paramix</span><span class='op'>::</span><span class='const'>Parametric</span>
+  <span class='id include'>include</span> <span class='const'>MyMixin</span><span class='lbracket'>[</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>f</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:value</span><span class='op'>=&gt;</span><span class='int'>1</span><span class='rbracket'>]</span>
+
+  <span class='id parameterized'>parameterized</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id params'>params</span><span class='op'>|</span>
+
+    <span class='id public'>public</span> <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='kw'>do</span>
+      <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+
+<p>And a class for it.</p>
+
+<pre class="code"><span class='kw'>class</span> <span class='const'>Y</span>
+  <span class='id include'>include</span> <span class='const'>AnotherMixin</span><span class='lbracket'>[</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>g</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:value</span><span class='op'>=&gt;</span><span class='int'>2</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+
+<p>We can see that the parameters stay with their respective mixins.</p>
+
+<pre class="code"><span class='const'>Y</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id f'>f</span><span class='period'>.</span><span class='id assert'>assert</span> <span class='op'>==</span> <span class='int'>1</span>
+<span class='const'>Y</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id g'>g</span><span class='period'>.</span><span class='id assert'>assert</span> <span class='op'>==</span> <span class='int'>2</span></pre>
+
+<p>However if we do the same, but do not paramterize the first module then the
+including module also become parametric.</p>
+
+<pre class="code"><span class='kw'>module</span> <span class='const'>ThirdMixin</span>
+  <span class='comment'>#include Paramix::Parametric
+</span>  <span class='id include'>include</span> <span class='const'>MyMixin</span>
+
+  <span class='id parameterized'>parameterized</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id params'>params</span><span class='op'>|</span>
+
+    <span class='id public'>public</span> <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id succ'>succ</span> <span class='kw'>do</span>
+      <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+
+<p>And a class for it.</p>
+
+<pre class="code"><span class='kw'>class</span> <span class='const'>Z</span>
+  <span class='id include'>include</span> <span class='const'>ThirdMixin</span><span class='lbracket'>[</span><span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>q</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:value</span><span class='op'>=&gt;</span><span class='int'>3</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+
+<p>We can see that the value of the parameter has propogated up to its
+ancestor parametric module.</p>
+
+<pre class="code"><span class='const'>Z</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id q'>q</span><span class='period'>.</span><span class='id assert'>assert</span> <span class='op'>==</span> <span class='int'>3</span>
+<span class='const'>Z</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id r'>r</span><span class='period'>.</span><span class='id assert'>assert</span> <span class='op'>==</span> <span class='int'>3</span></pre>
+
+<h1>Parametric Include</h1>
+
+<p>Load the library.</p>
+
+<pre class="code"><span class='id require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>paramix</span><span class='tstring_end'>'</span></span></pre>
+
+<p>Given a parametric mixin.</p>
+
+<pre class="code"><span class='kw'>module</span> <span class='const'>M</span>
+  <span class='id include'>include</span> <span class='const'>Paramix</span><span class='op'>::</span><span class='const'>Parametric</span>
+
+  <span class='id parameterized'>parameterized</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id params'>params</span><span class='op'>|</span>
+
+    <span class='id public'>public</span> <span class='symbol'>:f</span> <span class='kw'>do</span>
+      <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:p</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+
+<p>We can inlcude the parameteric module in a some classes.</p>
+
+<pre class="code"><span class='kw'>class</span> <span class='const'>I1</span>
+  <span class='id include'>include</span> <span class='const'>M</span><span class='lbracket'>[</span><span class='symbol'>:p</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mosh</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>I2</span>
+  <span class='id include'>include</span> <span class='const'>M</span><span class='lbracket'>[</span><span class='symbol'>:p</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>many</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+
+<p>And the result will vary according to the parameter set.</p>
+
+<pre class="code"><span class='const'>I1</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id f'>f</span>  <span class='comment'>#=&gt; &quot;mosh&quot;
+</span><span class='const'>I2</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id f'>f</span>  <span class='comment'>#=&gt; &quot;many&quot;</span></pre>
+
+<h1>Parametric Extension</h1>
+
+<p>We can also extend classes witht the mixin.</p>
+
+<pre class="code"><span class='kw'>class</span> <span class='const'>E1</span>
+  <span class='id extend'>extend</span> <span class='const'>M</span><span class='lbracket'>[</span><span class='symbol'>:p</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mosh2</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>E2</span>
+  <span class='id extend'>extend</span> <span class='const'>M</span><span class='lbracket'>[</span><span class='symbol'>:p</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>many2</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+
+<p>And the results will likewise work as expected.</p>
+
+<pre class="code"><span class='const'>E1</span><span class='period'>.</span><span class='id f'>f</span>  <span class='comment'>#=&gt; &quot;mosh2&quot;
+</span><span class='const'>E2</span><span class='period'>.</span><span class='id f'>f</span>  <span class='comment'>#=&gt; &quot;many2&quot;</span></pre>
+
+<h1>Dynamically Defined Methods</h1>
+
+<p>Parametric mixins can be used to define dynamic code.</p>
+
+<pre class="code"><span class='kw'>module</span> <span class='const'>N</span>
+  <span class='id include'>include</span> <span class='const'>Paramix</span><span class='op'>::</span><span class='const'>Parametric</span>
+
+  <span class='id parameterized'>parameterized</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id params'>params</span><span class='op'>|</span>
+    <span class='id attr_accessor'>attr_accessor</span> <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:a</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+
+<p>Now if we include this module we will have new attributes based on the
+parameter assigned.</p>
+
+<pre class="code"><span class='kw'>class</span> <span class='const'>D1</span>
+  <span class='id include'>include</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='symbol'>:a</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>m1</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>D2</span>
+  <span class='id include'>include</span> <span class='const'>N</span><span class='lbracket'>[</span><span class='symbol'>:a</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>m2</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span>
+
+<span class='id d1'>d1</span> <span class='op'>=</span> <span class='const'>D1</span><span class='period'>.</span><span class='id new'>new</span>
+<span class='id d1'>d1</span><span class='period'>.</span><span class='id m1'>m1</span> <span class='op'>=</span> <span class='symbol'>:yes1</span>
+
+<span class='id d1'>d1</span><span class='period'>.</span><span class='id m1'>m1</span>  <span class='comment'>#=&gt; :yes1
+</span>
+<span class='id d2'>d2</span> <span class='op'>=</span> <span class='const'>D2</span><span class='period'>.</span><span class='id new'>new</span>
+<span class='id d2'>d2</span><span class='period'>.</span><span class='id m2'>m2</span> <span class='op'>=</span> <span class='symbol'>:yes2</span>
+
+<span class='id d2'>d2</span><span class='period'>.</span><span class='id m2'>m2</span>  <span class='comment'>#=&gt; :yes2</span></pre>
+
+<h1>Works with Namespaces</h1>
+
+<p>Parametric mixins work regardless of the namespace depth.</p>
+
+<pre class="code"><span class='kw'>module</span> <span class='const'>R</span>
+  <span class='kw'>module</span> <span class='const'>M</span>
+    <span class='id include'>include</span> <span class='const'>Paramix</span><span class='op'>::</span><span class='const'>Parametric</span>
+
+    <span class='id parameterized'>parameterized</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id params'>params</span><span class='op'>|</span>
+      <span class='id public'>public</span> <span class='symbol'>:f</span> <span class='kw'>do</span>
+        <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:p</span><span class='rbracket'>]</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='kw'>module</span> <span class='const'>Q</span>
+  <span class='kw'>class</span> <span class='const'>I</span>
+    <span class='id include'>include</span> <span class='const'>R</span><span class='op'>::</span><span class='const'>M</span><span class='lbracket'>[</span><span class='symbol'>:p</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mosh</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='kw'>class</span> <span class='const'>E</span>
+    <span class='id extend'>extend</span> <span class='const'>R</span><span class='op'>::</span><span class='const'>M</span><span class='lbracket'>[</span><span class='symbol'>:p</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>many</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+
+<span class='const'>Q</span><span class='op'>::</span><span class='const'>I</span><span class='period'>.</span><span class='id new'>new</span><span class='period'>.</span><span class='id f'>f</span>  <span class='comment'>#=&gt; &quot;mosh&quot;
+</span>
+<span class='const'>Q</span><span class='op'>::</span><span class='const'>E</span><span class='period'>.</span><span class='id f'>f</span> <span class='comment'>#=&gt; &quot;many&quot;</span></pre>
+</div></div>
+    
+    <div id="footer">
+  Generated on Sat Oct 22 21:21:22 2011 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.3 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
