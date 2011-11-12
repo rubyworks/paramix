@@ -8,7 +8,7 @@ gem:
   active: true
 
 github:
-  active : true
+  gh_pages: web
 
 #mast:
 #  service: Mast
@@ -20,29 +20,30 @@ yard:
   priority: 2
 
 dnote:
+  title: Developer's Notes
   labels: ~
   output: log/NOTES.rdoc
 
 qed:
-  files: spec/
+  files: qed
 
 qedoc:
-  files : spec/
+  files : qed
   title : Paramix Demonstrandum
   output: QED.rdoc
 
-rspec:
-  include: spec/
-  exclude: ~
-  loadpath: [lib]
-  requires: ~
-  active: false
+#rspec:
+#  include: spec/
+#  exclude: ~
+#  loadpath: [lib]
+#  requires: ~
+#  active: false
 
 syntax:
   files: lib/
 
 vclog:
   output:
-    - log/Changes.rdoc
-    - log/History.rdoc
+    - log/changes.html
+    - log/history.html
 
