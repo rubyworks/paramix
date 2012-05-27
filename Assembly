@@ -25,10 +25,10 @@ dnote:
   output: log/NOTES.rdoc
 
 qed:
-  files: qed
+  files: demo
 
 qedoc:
-  files : qed
+  files : demo
   title : Paramix Demonstrandum
   output: QED.rdoc
 
