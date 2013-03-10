@@ -1,26 +1,23 @@
-= Paramix
+# Paramix
 
-Project::   Paramix
-Copyright:: (c) 2006 Rubyworks
-License::   BSD-2-Clause
-Website::   http://rubyworks.github.com/paramix
-Source::    http://github.com/rubyworks/paramix
-Status::    {<img src="http://travis-ci.org/rubyworks/paramix.png" />}[http://travis-ci.org/rubyworks/paramix]
+[![Gem Version](https://badge.fury.io/rb/paramix.png)](http://badge.fury.io/rb/paramix)
+[![Build Status](https://secure.travis-ci.org/rubyworks/paramix.png)](http://travis-ci.org/rubyworks/paramix) &nbsp; &nbsp;
+[![Flattr Me](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/324911/Rubyworks-Ruby-Development-Fund)
+
+[Website](http://rubyworks.github.com/paramix) &middot;
+[YARD API](http://rubydoc.info/gems/paramix) &middot;
+[Report Issue](http://github.com/rubyworks/paramix/issues) &middot;
+[Source Code](http://github.com/rubyworks/paramix)
 
 
-== Description
+## About
 
 Parametric Mixins provides an easy means to "functionalize" modules.
 The module can then be differentiated upon usage according to the
 parameters provided.
 
 
-== Release Notes
-
-Please see the HISTORY.rdoc file.
-
-
-== Examples
+## Usage
 
 Here is the most basic example. It simply makes the parametric module's
 parameters available at the instance level.
@@ -67,9 +64,9 @@ define a method and another parameter to define it's return value.
     X.new.foo  #=> 'bar'
 
 
-== Copyrights
+## Copyrights
 
-Copyright (c) 2006 Thomas Sawyer
+Copyright (c) 2006 Rubyworks
 
 This program is ditributed unser the terms of the BSD-2-Clause license.
 

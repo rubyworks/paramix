@@ -1,35 +1,35 @@
-= Basic Example
+# Basic Example
 
 Require the library.
 
-  require 'paramix'
+    require 'paramix'
 
 Create a parametric mixin.
 
-    module MyMixin
-      include Paramix::Parametric
+      module MyMixin
+        include Paramix::Parametric
 
-      parameterized do |params|
+        parameterized do |params|
 
-        public params[:name] do
-          params[:value]
+          public params[:name] do
+            params[:value]
+          end
+
         end
-
       end
-    end
 
 Create a class that uses the mixin and set the parameter.
 
-    class X
-      include MyMixin[:name => 'f', :value=>1]
-    end
+      class X
+        include MyMixin[:name => 'f', :value=>1]
+      end
 
 Then the parameter is accessible.
 
-    X.new.f.assert == 1
+      X.new.f.assert == 1
 
 
-= Nested Parematric Mixins
+# Nested Parematric Mixins
 
 If we create another parametric mixin which depends on the first.
 

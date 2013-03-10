@@ -1,0 +1,68 @@
+---
+revision: 2013
+type: ruby
+sources:
+- var
+authors:
+- name: Trans
+  email: transfire@gmail.com
+organizations:
+- name: Rubyworks
+requirements:
+- groups:
+  - build
+  development: true
+  name: detroit
+- groups:
+  - build
+  development: true
+  name: ergo
+- groups:
+  - test
+  development: true
+  name: qed
+- groups:
+  - test
+  development: true
+  name: ae
+conflicts: []
+alternatives: []
+resources:
+- type: home
+  uri: http://rubyworks.github.com/paramix
+  label: Homepage
+- type: code
+  uri: http://github.com/rubyworks/paramix
+  label: Source Code
+- type: docs
+  uri: http://rubydoc.info/gems/paramix
+  label: Documentation
+- type: wiki
+  uri: http://wiki.github.com/rubyworks/paramix
+  label: User Guide
+- type: bugs
+  uri: http://github.com/rubyworks/paramix/issues
+  label: Issue Tracker
+- type: mail
+  uri: http://groups.google.com/group/rubyworks-mailinglist
+  label: Mailing List
+repositories:
+- name: upstream
+  scm: git
+  uri: git://github.com/rubyworks/paramix.git
+categories: []
+copyrights:
+- holder: Rubyworks
+  year: '2006'
+  license: BSD-2-Clause
+customs: []
+paths:
+  lib:
+  - lib
+created: '2006-01-01'
+summary: Parametric Mixins
+title: Paramix
+version: 2.0.1
+name: paramix
+description: Parametric Mixins provides parameters for mixin modules.
+date: '2013-03-10'
